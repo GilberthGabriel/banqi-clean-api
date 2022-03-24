@@ -16,8 +16,4 @@
       ]
     }
   },
-  "include": [
-    "src",
-  ],
-  "exclude": []
 }
