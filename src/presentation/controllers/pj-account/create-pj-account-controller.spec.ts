@@ -2,9 +2,9 @@ import {
   CreatePjAccountDto,
   PjAccount,
   UpdatePjAccountDto,
-} from 'domain/entities';
-import { IPjAccountRepository } from 'domain/repositories';
-import { CreatePjAccountUseCase } from 'usecases';
+} from '@/domain/entities';
+import { IPjAccountRepository } from '@/domain/repositories';
+import { CreatePjAccountUseCase } from '@/usecases';
 import { CreatePjAccountController } from './create-pj-account-controller';
 
 class FakeAccountRepository implements IPjAccountRepository {
