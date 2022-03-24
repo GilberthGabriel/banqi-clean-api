@@ -1,36 +1,53 @@
-import { CreatePjAccountDto, PjAccount } from 'domain/entities';
+import {
+  CreatePjAccountDto,
+  PjAccount,
+  UpdatePjAccountDto,
+} from 'domain/entities';
+import { InsufficientRevenueError, InvalidCnpjError } from 'domain/errors';
 import { IPjAccountRepository } from 'domain/repositories';
 import { CreatePjAccountUseCase } from './create-pj-account-use-case';
 
-class FakePjAccountRepository implements IPjAccountRepository {
-  private readonly accounts: PjAccount[] = [];
-
+class FakeAccountRepository implements IPjAccountRepository {
   async create(data: CreatePjAccountDto): Promise<PjAccount> {
-    const account: PjAccount = {
+    return {
       ...data,
-      createdAt: new Date(),
       id: '1',
+      createdAt: new Date(),
     };
-
-    this.accounts.push(account);
-    return account;
   }
 }
 
-describe('create pj account usecase', () => {
-  it('should call repository.create method', async () => {
-    const repo = new FakePjAccountRepository();
-    const useCase = new CreatePjAccountUseCase(repo);
-    const spy = jest.spyOn(repo, 'create');
-    const account: CreatePjAccountDto = {
-      name: 'test',
-      address: 'test',
-      description: 'test',
-      cnpj: '123456789',
-      revenue: 0,
-    };
+const makeSut = () => {
+  const repo = new FakeAccountRepository();
+  const useCase = new CreatePjAccountUseCase(repo);
+  return { repo, useCase };
+};
 
-    await useCase.perform(account);
-    expect(spy).toBeCalledWith(account);
+const makePjAccount = (data: UpdatePjAccountDto = {}) => ({
+  name: data.name || 'test',
+  cnpj: data.cnpj || '12345678912',
+  address: data.address || 'test',
+  description: data.description || 'test',
+  revenue: data.revenue || 0,
+});
+
+describe('create pj account use-case', () => {
+  it('should not create account with revenue less than 0', async () => {
+    const { useCase } = makeSut();
+    const response = await useCase.perform(makePjAccount({ revenue: -10 }));
+    expect(response).toBeInstanceOf(InsufficientRevenueError);
+  });
+
+  it('should call repository.create method', async () => {
+    const { useCase, repo } = makeSut();
+    const spy = jest.spyOn(repo, 'create');
+    await useCase.perform(makePjAccount());
+    expect(spy).toBeCalled();
+  });
+
+  it('should not create account with invalid cnpj', async () => {
+    const { useCase } = makeSut();
+    const response = await useCase.perform(makePjAccount({ cnpj: '123' }));
+    expect(response).toBeInstanceOf(InvalidCnpjError);
   });
 });
