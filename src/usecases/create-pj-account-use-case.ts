@@ -1,7 +1,7 @@
-import { CreatePjAccountDto, PjAccount } from '../domain/entities';
-import { InsufficientRevenueError, InvalidCnpjError } from '../domain/errors';
-import { IPjAccountRepository } from '../domain/repositories';
-import { IUseCase } from './ports/use-case';
+import { CreatePjAccountDto, PjAccount } from '@/domain/entities';
+import { InsufficientRevenueError, InvalidCnpjError } from '@/domain/errors';
+import { IPjAccountRepository } from '@/domain/repositories';
+import { IUseCase } from './ports';
 
 export class CreatePjAccountUseCase implements IUseCase {
   constructor(private readonly repo: IPjAccountRepository) {}

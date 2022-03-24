@@ -2,9 +2,9 @@ import {
   CreatePjAccountDto,
   PjAccount,
   UpdatePjAccountDto,
-} from 'domain/entities';
-import { InsufficientRevenueError, InvalidCnpjError } from 'domain/errors';
-import { IPjAccountRepository } from 'domain/repositories';
+} from '@/domain/entities';
+import { InsufficientRevenueError, InvalidCnpjError } from '@/domain/errors';
+import { IPjAccountRepository } from '@/domain/repositories';
 import { CreatePjAccountUseCase } from './create-pj-account-use-case';
 
 class FakeAccountRepository implements IPjAccountRepository {
