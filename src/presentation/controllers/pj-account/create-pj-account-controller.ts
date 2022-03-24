@@ -1,7 +1,7 @@
-import { InsufficientRevenueError, InvalidCnpjError } from 'domain/errors';
-import { badRequest, created } from 'presentation/utils';
-import { Controller, HttpRequest, HttpResponse } from 'presentation/utils';
-import { CreatePjAccountUseCase } from 'usecases';
+import { InsufficientRevenueError, InvalidCnpjError } from '@/domain/errors';
+import { badRequest, created } from '@/presentation/utils';
+import { Controller, HttpRequest, HttpResponse } from '@/presentation/utils';
+import { CreatePjAccountUseCase } from '@/usecases';
 
 export class CreatePjAccountController implements Controller {
   constructor(private readonly useCase: CreatePjAccountUseCase) {}

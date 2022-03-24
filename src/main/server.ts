@@ -1,3 +1,4 @@
+import 'module-alias/register';
 import { PrismaClient } from '@prisma/client';
 import dotenv from 'dotenv';
 
