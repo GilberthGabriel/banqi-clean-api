@@ -1,5 +1,5 @@
+import { Middleware } from '@/presentation/utils';
 import { NextFunction, Request, Response } from 'express';
-import { Middleware } from 'presentation/utils/ports/middleware';
 
 export async function adaptMiddleware(middleware: Middleware) {
   return () => async (req: Request, res: Response, next: NextFunction) => {
