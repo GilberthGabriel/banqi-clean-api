@@ -1,5 +1,5 @@
-import { CreatePjAccountDto, PjAccount } from 'domain/entities';
-import { IPjAccountRepository } from 'domain/repositories';
+import { CreatePjAccountDto, PjAccount } from '@/domain/entities';
+import { IPjAccountRepository } from '@/domain/repositories';
 import { PrismaClient } from '@prisma/client';
 
 export class PrismaPjAccountRepository implements IPjAccountRepository {

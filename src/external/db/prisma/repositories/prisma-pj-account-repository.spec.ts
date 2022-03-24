@@ -1,5 +1,5 @@
 import { PrismaClient } from '@prisma/client';
-import { UpdatePjAccountDto } from 'domain/entities';
+import { UpdatePjAccountDto } from '@/domain/entities';
 import { PrismaPjAccountRepository } from './prisma-pj-account-repository';
 jest.mock('@prisma/client', () => {
   return {
