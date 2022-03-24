@@ -9,4 +9,7 @@ module.exports = {
   },
   collectCoverageFrom: ['<rootDir>/src/**/*.ts'],
   coveragePathIgnorePatterns: ['index.ts'],
+  moduleNameMapper: {
+    "@/(.*)": "<rootDir>/src/$1"
+  }
 };
