@@ -11,6 +11,7 @@ import { PjAccount as PrismaPjAccount, PrismaClient } from '@prisma/client';
 const adptPjAccount = (data: PrismaPjAccount): PjAccount => {
   return {
     ...data,
+    deletedAt: data.deletedAt!,
     revenue: Number(data.revenue),
   };
 };

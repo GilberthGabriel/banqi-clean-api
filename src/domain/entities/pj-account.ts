@@ -1,6 +1,7 @@
 export type PjAccount = {
   id: string;
   createdAt: Date;
+  deletedAt?: Date;
   name: string;
   cnpj: string;
   description: string;
@@ -22,6 +23,7 @@ export type UpdatePjAccountDto = {
   description?: string;
   address?: string;
   revenue?: number;
+  deletedAt?: Date | null;
 };
 
 export type FindPjAccountDto = {
