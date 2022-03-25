@@ -10,4 +10,5 @@ export interface IPjAccountRepository {
   create(data: CreatePjAccountDto): Promise<PjAccount | DuplicatedCnpjError>;
   update(data: UpdatePjAccountDto): Promise<PjAccount | PjAccountNotFoundError>;
   find(data: FindPjAccountDto): Promise<PjAccount | PjAccountNotFoundError>;
+  list(): Promise<PjAccount[]>;
 }
