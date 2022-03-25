@@ -1,10 +1,13 @@
 import { ApplicationError } from '../application-error';
 
 export class PjAccountNotFoundError extends ApplicationError {
+  public static readonly code: string = 'PJ04';
+  public static readonly message: string = 'Pj account not found';
+
   constructor() {
     super({
-      code: 'PJ04',
-      message: 'Pj account not found',
+      code: PjAccountNotFoundError.code,
+      message: PjAccountNotFoundError.message,
     });
   }
 }

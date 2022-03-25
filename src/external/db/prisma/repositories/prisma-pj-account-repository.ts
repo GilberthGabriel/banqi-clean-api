@@ -1,5 +1,6 @@
 import {
   CreatePjAccountDto,
+  FindPjAccountDto,
   PjAccount,
   UpdatePjAccountDto,
 } from '@/domain/entities';
@@ -41,5 +42,16 @@ export class PrismaPjAccountRepository implements IPjAccountRepository {
     } catch (e) {
       return new PjAccountNotFoundError();
     }
+  }
+
+  async find(
+    data: FindPjAccountDto,
+  ): Promise<PjAccount | PjAccountNotFoundError> {
+    const account = await this.prisma.pjAccount.findUnique({
+      where: data,
+    });
+
+    if (!account) return new PjAccountNotFoundError();
+    return adptPjAccount(account);
   }
 }

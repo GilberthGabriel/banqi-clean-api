@@ -23,3 +23,8 @@ export type UpdatePjAccountDto = {
   address?: string;
   revenue?: number;
 };
+
+export type FindPjAccountDto = {
+  id?: string;
+  cnpj?: string;
+};
