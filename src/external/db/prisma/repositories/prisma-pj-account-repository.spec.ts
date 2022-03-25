@@ -22,4 +22,12 @@ describe('prisma pj account repository', () => {
     });
     expect(spy).toBeCalled();
   });
+
+  it('should call prisma findUnique method', async () => {
+    const client = mockDeep<PrismaClient>();
+    const spy = jest.spyOn(client.pjAccount, 'findUnique');
+    const repo = new PrismaPjAccountRepository(client);
+    await repo.find({ id: '1' });
+    expect(spy).toBeCalled();
+  });
 });
