@@ -45,6 +45,10 @@ You can view the tests result and the code coverage.
 $ npm run test
 ```
 
+## Docs
+
+You can view the application documentation on the route /api-docs
+
 ## Contributing
 
 Pull requests are welcome. For major changes, please open an issue first to discuss what you would like to change.
