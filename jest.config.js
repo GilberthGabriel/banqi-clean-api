@@ -8,8 +8,9 @@ module.exports = {
     '^.+\\.tsx?$': 'ts-jest',
   },
   collectCoverageFrom: ['<rootDir>/src/**/*.ts'],
-  coveragePathIgnorePatterns: ['index.ts'],
+  coveragePathIgnorePatterns: ['index.ts', 'main/*'],
+  testPathIgnorePatterns: ['dist'],
   moduleNameMapper: {
-    "@/(.*)": "<rootDir>/src/$1"
-  }
+    '@/(.*)': '<rootDir>/src/$1',
+  },
 };
