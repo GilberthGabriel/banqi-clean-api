@@ -1,32 +1,25 @@
 import { PrismaClient } from '@prisma/client';
-import { UpdatePjAccountDto } from '@/domain/entities';
 import { PrismaPjAccountRepository } from './prisma-pj-account-repository';
-jest.mock('@prisma/client', () => {
-  return {
-    PrismaClient: function () {
-      return {
-        pjAccount: {
-          create: makePjAccount,
-        },
-      };
-    },
-  };
-});
-
-const makePjAccount = (data: UpdatePjAccountDto = {}) => ({
-  name: data.name || 'test',
-  cnpj: data.cnpj || '12345678912',
-  address: data.address || 'test',
-  description: data.description || 'test',
-  revenue: data.revenue || 0,
-});
+import { mockDeep } from 'jest-mock-extended';
+import { makeFakePjAccountDto } from '@/../tests/helper';
 
 describe('prisma pj account repository', () => {
   it('should call prisma create method', async () => {
-    const mock = new PrismaClient();
-    const spy = jest.spyOn(mock.pjAccount, 'create');
-    const repo = new PrismaPjAccountRepository(mock);
-    await repo.create(makePjAccount());
+    const client = mockDeep<PrismaClient>();
+    const spy = jest.spyOn(client.pjAccount, 'create');
+    const repo = new PrismaPjAccountRepository(client);
+    await repo.create(makeFakePjAccountDto());
+    expect(spy).toBeCalled();
+  });
+
+  it('should call prisma update method', async () => {
+    const client = mockDeep<PrismaClient>();
+    const spy = jest.spyOn(client.pjAccount, 'update');
+    const repo = new PrismaPjAccountRepository(client);
+    await repo.update({
+      id: '1',
+      ...makeFakePjAccountDto(),
+    });
     expect(spy).toBeCalled();
   });
 });
