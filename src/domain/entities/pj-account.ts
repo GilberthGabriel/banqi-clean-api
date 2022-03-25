@@ -17,8 +17,8 @@ export type CreatePjAccountDto = {
 };
 
 export type UpdatePjAccountDto = {
+  id: string;
   name?: string;
-  cnpj?: string;
   description?: string;
   address?: string;
   revenue?: number;
