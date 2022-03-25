@@ -1,5 +1,9 @@
-import { InsufficientRevenueError, InvalidCnpjError } from '@/domain/errors';
-import { badRequest, created } from '@/presentation/utils';
+import {
+  DuplicatedCnpjError,
+  InsufficientRevenueError,
+  InvalidCnpjError,
+} from '@/domain/errors';
+import { badRequest, conflict, created } from '@/presentation/utils';
 import { Controller, HttpRequest, HttpResponse } from '@/presentation/utils';
 import { CreatePjAccountUseCase } from '@/usecases';
 
@@ -15,15 +19,20 @@ export class CreatePjAccountController implements Controller {
       revenue: request.body.revenue,
     });
 
-    if (response instanceof InvalidCnpjError) {
+    if (
+      response instanceof InvalidCnpjError ||
+      response instanceof InsufficientRevenueError
+    ) {
       return badRequest({
-        message: 'cannot create pj account with an invalid cnpj',
+        code: response.code,
+        message: response.message,
       });
     }
 
-    if (response instanceof InsufficientRevenueError) {
-      return badRequest({
-        message: 'cannot create pj account with revenue less than 0',
+    if (response instanceof DuplicatedCnpjError) {
+      return conflict({
+        code: response.code,
+        message: response.message,
       });
     }
 
