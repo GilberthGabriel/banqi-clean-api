@@ -30,4 +30,12 @@ describe('prisma pj account repository', () => {
     await repo.find({ id: '1' });
     expect(spy).toBeCalled();
   });
+
+  it('should call prisma findMany method', async () => {
+    const client = mockDeep<PrismaClient>();
+    const spy = jest.spyOn(client.pjAccount, 'findMany');
+    const repo = new PrismaPjAccountRepository(client);
+    await repo.list();
+    expect(spy).toBeCalled();
+  });
 });

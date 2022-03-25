@@ -54,4 +54,9 @@ export class PrismaPjAccountRepository implements IPjAccountRepository {
     if (!account) return new PjAccountNotFoundError();
     return adptPjAccount(account);
   }
+
+  async list(): Promise<PjAccount[]> {
+    const accounts = (await this.prisma.pjAccount.findMany()) || [];
+    return accounts.map(adptPjAccount);
+  }
 }
