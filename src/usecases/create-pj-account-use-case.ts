@@ -1,5 +1,9 @@
 import { CreatePjAccountDto, PjAccount } from '@/domain/entities';
-import { InsufficientRevenueError, InvalidCnpjError } from '@/domain/errors';
+import {
+  DuplicatedCnpjError,
+  InsufficientRevenueError,
+  InvalidCnpjError,
+} from '@/domain/errors';
 import { IPjAccountRepository } from '@/domain/repositories';
 import { IUseCase } from './ports';
 
@@ -8,9 +12,14 @@ export class CreatePjAccountUseCase implements IUseCase {
 
   async perform(
     data: CreatePjAccountDto,
-  ): Promise<PjAccount | InvalidCnpjError | InsufficientRevenueError> {
+  ): Promise<
+    | PjAccount
+    | InvalidCnpjError
+    | InsufficientRevenueError
+    | DuplicatedCnpjError
+  > {
     if (data.cnpj.length !== 11) return new InvalidCnpjError();
     if (data.revenue < 0) return new InsufficientRevenueError();
-    return this.repo.create(data);
+    return await this.repo.create(data);
   }
 }
